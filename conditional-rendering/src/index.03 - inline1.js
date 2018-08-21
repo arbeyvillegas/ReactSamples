@@ -28,14 +28,11 @@ const LogoutButton = props => {
 
 function Mailbox(props) {
   const unreadMessages = props.unreadMessages;
-
-  if (unreadMessages.length <= 0) {
-    return null;
-  }
-
   return (
     <div>
-      <h2>You have {unreadMessages.length} unread messages.</h2>
+      {unreadMessages.length > 0 && (
+        <h2>You have {unreadMessages.length} unread messages.</h2>
+      )}
     </div>
   );
 }
@@ -59,12 +56,7 @@ class LoginControl extends React.Component {
     let content;
 
     if (isLoggedIn) {
-      content = (
-        <div>
-          <LogoutButton onClick={this.handleLogoutClick} />{' '}
-          <Mailbox unreadMessages={this.props.messages} />
-        </div>
-      );
+      content = <div><LogoutButton onClick={this.handleLogoutClick} /> <Mailbox unreadMessages={this.props.messages}/></div>;
     } else {
       content = <LoginButton onClick={this.handleLoginClick} />;
     }
@@ -80,7 +72,4 @@ class LoginControl extends React.Component {
 
 const messages = ['React', 'Re: React', 'Re:Re: React'];
 
-ReactDOM.render(
-  <LoginControl messages={messages} />,
-  document.getElementById('root')
-);
+ReactDOM.render(<LoginControl messages={messages}/>, document.getElementById('root'));
