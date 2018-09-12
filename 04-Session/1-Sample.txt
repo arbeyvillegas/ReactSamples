@@ -1,0 +1,10 @@
+class Identity extends React.Component {
+  render(){
+    return(
+        <form>
+        	<input type="text" name="firstName" value="" placeholder="First Name" />
+        </form>
+    );
+  }
+}
+ReactDOM.render(<Identity />, mountNode);

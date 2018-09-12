@@ -1,0 +1,24 @@
+class Identity extends React.Component {
+	
+  state = {
+  	email: ''
+  };
+  
+  onEmailChange = (event) =>  {  
+    this.setState({
+      	email: event.target.value
+    });
+  };
+
+  render(){
+    return(
+        <form>
+        	<input type="email" name="userEmail" value={this.state.email} placeholder="User Email" 
+          	onChange={this.onEmailChange} required/>
+					<button type="submit">Submit</button>
+        </form>
+    );
+  }
+}
+
+ReactDOM.render(<Identity />, mountNode);
