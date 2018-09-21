@@ -1,5 +1,5 @@
-//Create a speed calculator that validate 
-//whether the speed limit is surpassed
+//Create a speed calculator that indicates 
+//whether the speed exceeds a given speed limit in kph or mph
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SpeedCalculator from './speed-calculator'
