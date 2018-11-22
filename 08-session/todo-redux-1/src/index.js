@@ -10,7 +10,7 @@ const store = createStore(appReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && win
 
 const render = () => ReactDOM.render(
     <TodoApp 
-        todos={store.getState().todos} 
+        {...store.getState()} 
         dispatch={store.dispatch}/>
         , document.getElementById('root'));
 

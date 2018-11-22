@@ -1,43 +1,63 @@
 import React, { Component } from 'react';
 import * as actionTypes from '../actions/actionTypes';
+import FilterLink from './FilterLink';
+import TodoList from './TodoList';
+import AddTodo from './AddTodo';
+import Footer from './Footer';
 
 let nextTodoId = 0;
 export default class TodoApp extends Component {
+  getVisibleTodos = (todos, filter) => {
+    switch (filter) {
+      case 'SHOW_ALL':
+        return todos;
+      case 'SHOW_COMPLETED':
+        // Use the `Array.filter()` method
+        return todos.filter(t => t.completed);
+      case 'SHOW_ACTIVE':
+        return todos.filter(t => !t.completed);
+      default:
+        return todos;
+    }
+  };
+
   render() {
+    const visibleTodos = this.getVisibleTodos(
+      this.props.todos,
+      this.props.visibilityFilter
+    );
     return (
       <div>
-        <button onClick={() => {
+        <AddTodo
+          onAddClick={text =>
             this.props.dispatch({
               type: actionTypes.ADD_TODO,
-              text: 'Test',
-              id: nextTodoId++
-            });
-          }}>
-          Add Todo
-        </button>
-        <ul>
-          {this.props.todos.map(todo =>
-            <li key={todo.id}>
-              {todo.text}
-            </li>
-          )}
-        </ul>
+              id: nextTodoId++,
+              text
+            })
+          }
+        />
+        <TodoList
+          todos={visibleTodos}
+          onTodoClick={id =>
+            this.props.dispatch({
+              type: actionTypes.TOGGLE_TODO,
+              id
+            })
+          }
+        />
+
+        <Footer
+          visibilityFilter={this.props.visibilityFilter}
+          onFilterClick={filter =>
+            this.props.dispatch({
+              type: actionTypes.SET_VISIBILITY_FILTER,
+              filter
+            })
+          }
+          dispatch={this.props.dispatch}
+        />
       </div>
-    )
-  };
+    );
+  }
 }
-
-// // See Section 8 for earlier `render()` example
-// const render = () => {
-//   ReactDOM.render(
-//     // Render the TodoApp Component to the <div> with id 'root'
-//     <TodoApp
-//       todos={store.getState().todos}
-//     />,
-//     document.getElementById('root')
-
-//   )
-// };
-
-// store.subscribe(render);
-// render();
