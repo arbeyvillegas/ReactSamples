@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as actionTypes from '../actions/actionTypes';
-import FilterLink from './FilterLink';
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
 import Footer from './Footer';
@@ -27,7 +26,7 @@ export default class TodoApp extends Component {
       this.props.visibilityFilter
     );
     return (
-      <div>
+      <div style={{padding: '10px'}}>
         <AddTodo
           onAddClick={text =>
             this.props.dispatch({
